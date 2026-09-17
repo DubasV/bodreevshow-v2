@@ -48,4 +48,10 @@ node scripts/raffle.test.cjs
 
 ## Публикация
 
-Подготовлен обычный статический проект для отдельного GitHub-репозитория и GitHub Pages. Публикация пока не выполнена: в аккаунт GitHub требуется войти. После загрузки: Settings → Pages → Deploy from a branch → codex/brand-v2 → / (root). `.nojekyll` уже есть.
+Репозиторий: https://github.com/DubasV/bodreevshow-v2
+
+Тестовый сайт: https://dubasv.github.io/bodreevshow-v2/
+
+GitHub Pages настроен на ветку `main`, папку `/ (root)`. Для обновления сайта загрузите изменённые файлы в `main`; GitHub опубликует новую версию автоматически. `.nojekyll` отключает Jekyll.
+
+Материалы и фотографии принадлежат их правообладателям. Тестовая публикация не означает передачу прав на оригинальные тексты и изображения.
