@@ -1,0 +1,15 @@
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+assert.ok(fs.existsSync(require('node:path').join(__dirname,'../raffle-core.js')),'Логика импорта и розыгрыша ещё не реализована');
+const {parseRows,draw}=require('../raffle-core.js');
+const rows=[['Имя пользователя','Сумма, RUB','Дата и время'],['Иван','250','16.09'],['Анна','100','16.09'],['Иван','150','17.09'],['Аноним','1000','17.09'],['Пётр','-200','17.09']];
+const data=parseRows(rows,{price:100,includeAnonymous:false,exclude:''});
+assert.equal(data.total,4);assert.equal(data.distinct,2);
+assert.deepEqual(data.entries.map(e=>[e.name,e.start,e.end]),[['Иван',1,2],['Анна',3,3],['Иван',4,4]]);
+assert.equal(parseRows(rows,{price:100,includeAnonymous:true,exclude:'иван'}).total,11);
+assert.throws(()=>parseRows(rows,{price:0}),/Цена/);
+assert.throws(()=>parseRows([['other','columns']],{price:100}),/колонк/);
+const winners=draw(data.entries,2,()=>0);assert.deepEqual(winners.map(w=>w.name),['Иван','Анна']);
+assert.throws(()=>draw(data.entries,3,()=>0),/участник/);
+assert.equal(draw(data.entries,1,n=>n-1)[0].ticket,4);
+console.log('OK: импорт, диапазоны, фильтры, уникальные победители, границы и валидация');
